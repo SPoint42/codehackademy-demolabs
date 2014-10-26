@@ -1,0 +1,21 @@
+<div> 
+   <div class="alert alert-{{displayClass}}">
+       <strong>{{registrationStatus}}</strong>
+   </div>   
+   <form role="form">
+	    <div class="form-group">
+	      <label for="email">Email</label>
+	      <input id="email" ng-model="email" type="email" class="form-control" placeholder="" required autofocus />
+	      <label for="lastnameFirstname">Last name and first name</label>
+	      <input id="lastnameFirstname" ng-model="lastnameFirstname" type="text" class="form-control" placeholder="" required/>      
+	      <label for="password">password</label>
+	      <input id="password" ng-model="password" type="password" class="form-control" placeholder="" required/>      
+	      <label for="motivation">Motivation to join CH</label>
+	      <input id="motivation" ng-model="motivation" type="text" class="form-control" placeholder="" required/>
+	      <p class="help-block">Example for motivation information: I want to learn web app sec.</p>      
+	   </div>
+		<button type="button" class="btn btn-default pull-right" ng-click="register()">
+			<span class="glyphicon glyphicon-user"></span>&nbsp;Register
+		</button>        
+   </form>
+</div>

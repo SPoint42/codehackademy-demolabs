@@ -1,0 +1,16 @@
+<div>
+	<div class="alert alert-{{displayClass}}">
+		<strong>{{processingStatus}}</strong>
+	</div>
+	<label for="xmlContent">Copy/Paste complete XML file containing students informations to register:</label>
+	<textarea id="xmlContent" autofocus="autofocus" ng-model="xmlContent" class="form-control" rows="10"></textarea>
+	<button type="button" class="btn btn-default pull-right" ng-click="logout()">
+		<span class="glyphicon glyphicon-off"></span>&nbsp;LogOut
+	</button>	
+	<button type="button" class="btn btn-default pull-right" ng-click="profile()">
+		<span class="glyphicon glyphicon-user"></span>&nbsp;Profile
+	</button>	
+	<button type="button" class="btn btn-default pull-right" ng-click="import()">
+		<span class="glyphicon glyphicon-upload"></span>&nbsp;Import
+	</button>		
+</div>

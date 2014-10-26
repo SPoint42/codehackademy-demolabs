@@ -1,0 +1,16 @@
+<div> 
+   <div class="alert alert-{{displayClass}}">
+       <strong>{{authenticationStatus}}</strong>
+   </div>   
+   <form class="form-signin" role="form">
+        <h3 class="form-signin-heading">Please sign in</h3>
+        <input ng-model="email" type="email" class="form-control" placeholder="Email address" required autofocus />
+        <input ng-model="password" type="password" class="form-control" placeholder="Password" required autocomplete="off" />
+		<button type="button" class="btn btn-default pull-right" ng-click="register()">
+			<span class="glyphicon glyphicon-home"></span>&nbsp;Register
+		</button>   		        
+		<button type="button" class="btn btn-default pull-right" ng-click="authenticate()">
+			<span class="glyphicon glyphicon-user"></span>&nbsp;Login
+		</button>		
+   </form>
+</div>

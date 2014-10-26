@@ -1,0 +1,64 @@
+<div>
+
+	<button type="button" class="btn btn-default pull-right" ng-click="logout()">
+		<span class="glyphicon glyphicon-off"></span>&nbsp;LogOut
+	</button>
+	<button type="button" class="btn btn-default pull-right animate-if" ng-click="administer()" ng-if="isAdmin" >
+		<span class="glyphicon glyphicon-tasks"></span>&nbsp;Administer
+	</button>	
+	
+	<h3><p ng-bind-html="trustedBreadcrumb"></p></h3>
+
+	<div class="alert alert-{{displayClass}}">
+		<strong>{{processingStatus}}</strong>
+	</div>
+
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">Welcome {{studentProfile.lastnameFirstname}} ({{studentProfile.email}})</h3>
+		</div>
+		<div class="panel-body">
+			Your motivation to participate to the Code Hackademy is:
+			<div class="well">
+				<p ng-bind-html="studentProfile.trustedMotivation"></p>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">Code Hackademy available classe</h3>
+		</div>
+		<div class="panel-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="text-center">Session</th>
+						<th class="text-center">Label</th>
+						<th class="text-center">Registration status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="classes in classesCollection">
+						<td class="text-center">{{classes.sessionIdentifier}}</td>
+						<td class="text-center">{{classes.label}}</td>
+						<td class="text-center">
+							<div class="checkbox">
+								<label>
+						        	<input type="checkbox" ng-model="classes.selected" ng-true-value="true" ng-false-value="false" />
+						        	<span>&nbsp;</span>
+						        </label>
+					        </div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<button type="button" class="btn btn-default pull-right" ng-click="update()">
+		<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Update registration
+	</button>	
+	
+
+</div>

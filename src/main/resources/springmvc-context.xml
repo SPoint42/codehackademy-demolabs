@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jdbc 
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- ****************************** -->
+	<!-- ** CONTEXT FILE FOR SPRING MVC -->
+	<!-- ****************************** -->
+
+	<!-- Configure Spring MVC -->
+	<!-- http://docs.spring.io/spring/docs/4.1.1.RELEASE/spring-framework-reference/htmlsingle/#mvc-config -->
+	<mvc:annotation-driven />
+
+	<!-- http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/view/UrlBasedViewResolver.html -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- Configure bean to convert JSON to POJO and vice versa -->
+	<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+
+	<!-- Configure to plugin JSON as request and response in method handler -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Lets content of the client side app (AngularJS) be load AS IS by web server and not processed by Spring MVC Dispatcher Servlet -->
+	<!-- Don't use web resources browser caching because it's a demo app -->
+	<!-- http://docs.spring.io/spring/docs/4.1.1.RELEASE/spring-framework-reference/htmlsingle/#mvc-config-static-resources -->
+	<mvc:resources mapping="/app/**" location="/app/" cache-period="0" />
+
+	<!-- Auto discover custom beans -->
+	<context:component-scan base-package="lu.codehackademy.demolabs" />
+
+	<!-- Setup embedded database -->
+	<!-- http://docs.spring.io/spring/docs/4.1.1.RELEASE/spring-framework-reference/htmlsingle/#jdbc-embedded-database-support -->
+	<jdbc:embedded-database id="dataSource" type="H2">
+		<jdbc:script location="classpath:db-setup.sql" />
+	</jdbc:embedded-database>
+
+	<!-- Setup database accessor helper -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" depends-on="dataSource">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>
