@@ -83,7 +83,7 @@ In registration form, set XSS payload into field "**Motivation**" and after logi
 
 Follow the step below:
 
-1. Log as admin (admin are defined into the SQL file mentioned above), the default student account specified into login form is admin the you can use it,
+1. Log as admin (admin are defined into the SQL file mentioned above), the default student account specified into login form is admin then you can use it,
 2. Go into "**Administer**" section and import sample XML provided (its contains a XXE sample),
 3. Login using the new imported student,
 4. See XXE results into "**Motivation**" area.
