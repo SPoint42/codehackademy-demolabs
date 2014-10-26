@@ -19,7 +19,7 @@ This application contains the vulnerabilities below:
 Application use an embedded H2 database that is created and initialized at application startup using the file **db-setup.sql**.
 
 
-# Commands to package or run locally the application
+# Commands
 
 ## Package application (WAR file)
 
@@ -38,9 +38,7 @@ Application is then started on local URL **http://localhost:9097/chd/index.jsp**
 
 # Use vulnerabilities
 
-## XSS
-
-### DOM
+## DOM XSS
 
 Use the URL below to trigger the DOM XSS:
 
@@ -49,11 +47,11 @@ http://localhost:9097/chd/index.jsp#/profile?t=<script>alert(1);</script>
 
 ``` 
 
-### Stored
+## DOM Stored
 
 In registration form, set XSS payload into field "Motivation" and after login using the new student account.
 
-### XXE
+## XXE
 
 Follow the step below:
 
