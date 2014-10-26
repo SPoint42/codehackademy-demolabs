@@ -1,8 +1,10 @@
 # Description
 
-This project is a demonstration application for the sessions 3 and 7 of the "Code Hackademy" event: http://www.codehackademy.lu/#schedule
+This project is a demonstration application for the sessions 3 and 7 of the "Code Hackademy" event: 
 
-Project is Maven based.
+http://www.codehackademy.lu/#schedule
+
+> The application try to be, as much as possible, a real application with application security taken in account. The reaminder vulnerabilites come from an possible oversight from DEV team.
 
 This application contains the vulnerabilities below:
 
@@ -13,6 +15,29 @@ This application contains the vulnerabilities below:
 * XXE,
 
 * No Content Security Policy.
+
+# Application stack
+
+Project is Maven based and developed using Eclipse Luna IDE.
+
+Front end is based on:
+
+* Bootstrap,
+
+* AngularJS,
+
+* JQuery.
+
+
+Back end is based on:
+
+* Spring Framework,
+
+* Spring MVC (for REST services),
+
+* Spring Security,
+
+* Spring JDBC templates + H2 embedded database for persistence.
 
 # Data storage
 
