@@ -37,7 +37,10 @@ Back end is based on:
 
 * Spring Security,
 
-* Spring JDBC templates + H2 embedded database for persistence.
+* Spring JDBC templates + H2 embedded database for persistence,
+
+* JAXB for XML serialization/deserialization.
+
 
 # Data storage
 
