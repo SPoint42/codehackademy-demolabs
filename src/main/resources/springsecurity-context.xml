@@ -22,9 +22,9 @@
 		<security:intercept-url pattern="/app/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:intercept-url pattern="/app/fonts/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:intercept-url pattern="/app/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/app/img/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:intercept-url pattern="/app/files/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<!-- The prefix "ROLE_" is a marker which indicates that a simple comparison with the user’s authorities should be made -->
+		<security:intercept-url pattern="/app/img/**" access="ROLE_STUDENT" />
 		<security:intercept-url pattern="/app/js/profile-controller.js" access="ROLE_STUDENT" />
 		<security:intercept-url pattern="/app/profile.html" access="ROLE_STUDENT" />
 		<security:intercept-url pattern="/index.jsp#/profile" access="ROLE_STUDENT" />

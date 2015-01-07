@@ -121,7 +121,7 @@ public class DataProvider {
 					c.setLastnameFirstname(rs.getString("LASTNAME_FIRSTNAME"));
 					c.setMotivation(rs.getString("MOTIVATION"));
 					c.setPassword(((loadPassword) ? rs.getString("PASSWD") : "XXX"));
-					c.setClassesRegistered(buildListOfClasses(rs.getString("CLASSES_REGISTERED")));
+					c.setClassesRegistered(DataProvider.this.buildListOfClasses(rs.getString("CLASSES_REGISTERED")));
 					return c;
 				}
 			});
@@ -181,6 +181,23 @@ public class DataProvider {
 			String tmpStrTrimed = buffer.toString().trim();
 			String tmpStr = tmpStrTrimed.substring(0, tmpStrTrimed.lastIndexOf(',')).trim();
 			int recordUpdatedCount = this.jdbcTemplate.update(query, tmpStr, email);
+			if (recordUpdatedCount != 1) {
+				throw new SQLException("Abnormal count of record updated (" + recordUpdatedCount + ") !");
+			}
+		}
+	}
+
+	/**
+	 * Update motivation details of a student
+	 * 
+	 * @param email target student email for which classes registration must be updated
+	 * @param newMotivation New motivation details
+	 * @throws SQLException
+	 */
+	public void updateStudentMotivation(String email, String newMotivation) throws SQLException {
+		if (StringUtils.isNoneBlank(email) && StringUtils.isNoneBlank(newMotivation)) {
+			String query = "UPDATE CH_STUDENT SET MOTIVATION=? WHERE EMAIL=?";
+			int recordUpdatedCount = this.jdbcTemplate.update(query, newMotivation, email);
 			if (recordUpdatedCount != 1) {
 				throw new SQLException("Abnormal count of record updated (" + recordUpdatedCount + ") !");
 			}

@@ -71,8 +71,7 @@ public class ServicesProviderController {
 
 		try {
 			avClasses = this.dataProvider.retrieveAllClasses();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOG.error("Error during retrieving of available classes !", e);
 			avClasses = null;
 		}
@@ -94,8 +93,7 @@ public class ServicesProviderController {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			email = auth.getName();
 			isadmin = auth.getAuthorities().contains(new SimpleGrantedAuthority(Constants.ADMIN_SEC_ROLES));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOG.error("Error during retrieving admin status of student profile '{}' !", email, e);
 			isadmin = false;
 		}
@@ -118,8 +116,7 @@ public class ServicesProviderController {
 			email = auth.getName();
 			// Load student profile
 			student = this.dataProvider.retrieveStudent(email);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOG.error("Error during retrieving of student profile '{}' !", email, e);
 			student = null;
 		}
@@ -172,8 +169,7 @@ public class ServicesProviderController {
 					updateStatus = true;
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOG.error("Error during update of classe registration for student '{}' !", email, e);
 			updateStatus = false;
 		}
@@ -216,13 +212,40 @@ public class ServicesProviderController {
 					registrationSucceed = false;
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOG.error("Error during registration of a new student '{}' !", newStudent, e);
 			registrationSucceed = false;
 		}
 
 		return registrationSucceed;
+	}
+
+	/**
+	 * Service to update motivation of currently connected student
+	 * 
+	 * @param newMotivation New motivation details
+	 * @return JSON representation indicating the registration status
+	 */
+	@Secured(Constants.STUDENT_SEC_ROLES)
+	@RequestMapping(value = "/updateMotivation", method = RequestMethod.POST, produces = Constants.JSON_MIME_TYPE, consumes = Constants.FORM_URLENCODED_MIME_TYPE)
+	public boolean updateMotivation(@RequestParam(required = true, value = "MOTIVATION") String newMotivation) {
+		boolean updStatus = false;
+
+		try {
+			// Check presence of motivation details
+			if (StringUtils.isNoneBlank(newMotivation)) {
+				// Get student from user connected
+				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+				String email = auth.getName();
+				// [EPLVULN] Do not validate new motivation details
+				this.dataProvider.updateStudentMotivation(email, newMotivation);
+				updStatus = true;
+			}
+		} catch (Exception e) {
+			LOG.error("Error during update of students motivation !", e);
+		}
+
+		return updStatus;
 	}
 
 	/**
@@ -294,8 +317,7 @@ public class ServicesProviderController {
 				}
 
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			LOG.error("Error during import of a new students !", e);
 		}
 

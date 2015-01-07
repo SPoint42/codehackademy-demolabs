@@ -75,7 +75,7 @@ http://localhost:9097/chd/index.jsp#/profile?t=<script>alert(1);</script>
 
 ``` 
 
-## DOM Stored
+## XSS Stored
 
 In registration form, set XSS payload into field "**Motivation**" and after login using the new student account.
 
