@@ -80,7 +80,7 @@ http://localhost:9097/chd/index.jsp#/profile?t=<script>alert(1);</script>
 
 ## XSS Stored
 
-In **registration form** or **update motivation option in profile view*, set XSS payload into field "**Motivation**" and after login using the new student account.
+In **registration form** or **update motivation option in profile view**, set XSS payload into field **Motivation** and after, login using the new student account.
 
 ## XXE
 
