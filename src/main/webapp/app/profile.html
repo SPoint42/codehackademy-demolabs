@@ -1,15 +1,21 @@
 <div>
 
-	<button type="button" class="btn btn-default pull-right" ng-click="logout()">
+	<button type="button" class="btn btn-default pull-right"
+		ng-click="logout()">
 		<span class="glyphicon glyphicon-off"></span>&nbsp;LogOut
 	</button>
-	<button type="button" class="btn btn-default pull-right animate-if" ng-click="administer()" ng-if="isAdmin" >
+	<button type="button" class="btn btn-default pull-right animate-if"
+		ng-click="administer()" ng-if="isAdmin">
 		<span class="glyphicon glyphicon-tasks"></span>&nbsp;Administer
-	</button>	
-	
-	<h3><p ng-bind-html="trustedBreadcrumb"></p></h3>
-	
-	<p><img src="app/img/logo-ch.png" /></p>
+	</button>
+
+	<h3>
+		<p ng-bind-html="trustedBreadcrumb"></p>
+	</h3>
+
+	<p>
+		<img src="app/img/logo-ch.png" />
+	</p>
 
 	<div class="alert alert-{{displayClass}}">
 		<strong>{{processingStatus}}</strong>
@@ -26,6 +32,24 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">Update your motivation</h3>
+		</div>
+		<div class="panel-body">
+			<div class="input-group">
+				<textarea id="newMotivation" autofocus="autofocus" ng-model="newMotivation" class="form-control" rows="1"></textarea>
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="updateMotivation()">
+						<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Update motivation
+					</button>
+				</span>		
+			</div>
+		</div>		
+	</div>
+			
 
 	<div class="panel panel-info">
 		<div class="panel-heading">
@@ -46,21 +70,23 @@
 						<td class="text-center">{{classes.label}}</td>
 						<td class="text-center">
 							<div class="checkbox">
-								<label>
-						        	<input type="checkbox" ng-model="classes.selected" ng-true-value="true" ng-false-value="false" />
-						        	<span>&nbsp;</span>
-						        </label>
-					        </div>
+								<label> <input type="checkbox"
+									ng-model="classes.selected" ng-true-value="true"
+									ng-false-value="false" /> <span>&nbsp;</span>
+								</label>
+							</div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
-	
-	<button type="button" class="btn btn-default pull-right" ng-click="update()">
-		<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Update registration
-	</button>	
-	
+
+	<button type="button" class="btn btn-default pull-right"
+		ng-click="update()">
+		<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Update
+		registration
+	</button>
+
 
 </div>

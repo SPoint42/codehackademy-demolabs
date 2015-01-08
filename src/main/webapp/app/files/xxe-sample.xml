@@ -4,6 +4,6 @@
 		<Email>d@d.com</Email>
 		<LastnameFirstname>XXE test user</LastnameFirstname>
 		<Password>azertyuiop</Password>
-		<Motivation>Cool</Motivation>
+		<Motivation>I want to learn application security stuff</Motivation>
 	</Student>
 </Students>

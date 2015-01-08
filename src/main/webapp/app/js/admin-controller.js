@@ -5,7 +5,6 @@ CHDApp.controller("AdminController", function($scope, $rootScope, $http, $locati
 	$scope.processingStatus = "";
 	$scope.displayClass = "";
 	$scope.xmlContent = "";
-	$scope.newMotivation = "";
 
 	// Initialize controller
 	$scope.init = function() {
@@ -46,30 +45,7 @@ CHDApp.controller("AdminController", function($scope, $rootScope, $http, $locati
 			$scope.displayClass = "warning";
 		}
 	};
-	
-
-	// Update motivation function
-	$scope.updateMotivation = function() {
-		if ($scope.newMotivation != null && $scope.newMotivation != "") {
-			var params = "MOTIVATION=" + encodeURIComponent($scope.newMotivation);
-			$http.post(appContextPath + "/services/updateMotivation", params, {
-				headers : {
-					"Content-Type" : "application/x-www-form-urlencoded; charset=UTF-8"
-				}
-			}).success(function(data, status, headers, config) {
-				$scope.processingStatus = "Update succeed !";
-				$scope.displayClass = "success";
-			}).error(function(data, status, headers, config) {
-				$scope.processingStatus = "Update failed !";
-				$scope.displayClass = "danger";
-			});			
-		} else {
-			$scope.processingStatus = "New motivation not specified !";
-			$scope.displayClass = "warning";
-		}
-	}
-	
-	
+		
 	//Go to profile area
 	$scope.profile= function() {
 		$location.path("/profile");

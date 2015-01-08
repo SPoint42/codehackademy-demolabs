@@ -190,7 +190,7 @@ public class DataProvider {
 	/**
 	 * Update motivation details of a student
 	 * 
-	 * @param email target student email for which classes registration must be updated
+	 * @param email target student email for which motivation details must be updated
 	 * @param newMotivation New motivation details
 	 * @throws SQLException
 	 */

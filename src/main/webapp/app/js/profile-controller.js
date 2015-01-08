@@ -7,6 +7,7 @@ CHDApp.controller("ProfileController", function($scope, $rootScope, $http, $loca
 	$scope.classesCollection = null;
 	$scope.studentProfile = null;
 	$scope.isAdmin = false;
+	$scope.newMotivation = "";
 		
 	//[EPLVULN] Allow direct rendering of the URL (Angular sub part) specified in url bar field in order to allow DOM XSS
 	$scope.breadcrumb = "Breadcrumb: " + decodeURIComponent($location.url());
@@ -78,6 +79,35 @@ CHDApp.controller("ProfileController", function($scope, $rootScope, $http, $loca
 			$scope.displayClass = "danger";
 		}); 
     };
+    
+	// Update motivation function
+	$scope.updateMotivation = function() {
+		if ($scope.newMotivation != null && $scope.newMotivation != "") {
+			var params = "MOTIVATION=" + encodeURIComponent($scope.newMotivation);
+			$http.post(appContextPath + "/services/updateMotivation", params, {
+				headers : {
+					"Content-Type" : "application/x-www-form-urlencoded; charset=UTF-8"
+				}
+			}).success(function(data, status, headers, config) {
+				if(data){
+					$scope.processingStatus = "Update succeed !";
+					$scope.displayClass = "success";
+					//[EPLVULN] Allow direct rendering of the "motivation" field in order to allow STORED XSS 
+					$scope.studentProfile.trustedMotivation = $sce.trustAsHtml($scope.newMotivation);								
+					$scope.newMotivation = "";
+				}else{
+					$scope.processingStatus = "Update failed !";
+					$scope.displayClass = "danger";					
+				}
+			}).error(function(data, status, headers, config) {
+				$scope.processingStatus = "Update failed !";
+				$scope.displayClass = "danger";
+			});			
+		} else {
+			$scope.processingStatus = "New motivation not specified !";
+			$scope.displayClass = "warning";
+		}
+	}    
     
     //Update registration action
     $scope.update = function(){

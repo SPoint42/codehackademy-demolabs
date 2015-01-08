@@ -42,6 +42,9 @@ Back end is based on:
 * JAXB for XML serialization/deserialization.
 
 
+JavaEE 6 web application using JavaSE 7. 
+
+
 # Data storage
 
 Application use an embedded H2 database that is created and initialized at application startup using the file **db-setup.sql**.
@@ -66,7 +69,7 @@ Application is then started on local URL **http://localhost:9097/chd/index.jsp**
 
 # Trigger vulnerabilities
 
-## DOM XSS
+## XSS DOM
 
 Use the URL below to trigger the DOM XSS:
 
@@ -77,14 +80,14 @@ http://localhost:9097/chd/index.jsp#/profile?t=<script>alert(1);</script>
 
 ## XSS Stored
 
-In registration form, set XSS payload into field "**Motivation**" and after login using the new student account.
+In **registration form** or **update motivation option in profile view*, set XSS payload into field "**Motivation**" and after login using the new student account.
 
 ## XXE
 
 Follow the step below:
 
 1. Log as admin (admin are defined into the SQL file mentioned above), the default student account specified into login form is admin then you can use it,
-2. Go into "**Administer**" section and import sample XML provided (its contains a XXE sample),
+2. Go into "**Administer**" section and import sample XML provided in file **xxe-sample-filled.xml**,
 3. Login using the new imported student,
 4. See XXE results into "**Motivation**" area.
 
