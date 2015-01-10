@@ -4,4 +4,4 @@ jdk:
 notifications:
   email:
     - dominique.righetto@gmail.com    
-mvn clean package
+install: mvn clean package
