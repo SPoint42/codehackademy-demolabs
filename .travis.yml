@@ -1,7 +1,0 @@
-language: java
-jdk:
-    - oraclejdk7
-notifications:
-  email:
-    - dominique.righetto@gmail.com    
-install: mvn clean package
