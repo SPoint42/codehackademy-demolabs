@@ -67,6 +67,15 @@ mvn clean tomcat7:run-war
 Application is then started on local URL **http://localhost:9097/chd/index.jsp**.
 
 
+# Build
+
+Application is built on a Jenkins instance hosted by [CloudBees](https://www.cloudbees.com) and the resulting artifact (WAR file) is available [here](https://righettod.ci.cloudbees.com/job/CodeHackademyDemoLabs/lastSuccessfulBuild/artifact/target/chd.war) 
+
+Last build status:
+
+[![Build Status](https://righettod.ci.cloudbees.com/buildStatus/icon?job=CodeHackademyDemoLabs)](https://righettod.ci.cloudbees.com/job/CodeHackademyDemoLabs/)
+
+
 # Trigger vulnerabilities
 
 ## XSS DOM
