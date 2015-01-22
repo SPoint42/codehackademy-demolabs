@@ -1,6 +1,6 @@
 /*Angular controller for admin feature*/
 
-CHDApp.controller("AdminController", function($scope, $rootScope, $http, $location) {
+CHDApp.controller("AdminController", function($scope, $rootScope, $http, $location, $window) {
 
 	$scope.processingStatus = "";
 	$scope.displayClass = "";
@@ -50,6 +50,11 @@ CHDApp.controller("AdminController", function($scope, $rootScope, $http, $locati
 	$scope.profile= function() {
 		$location.path("/profile");
 	}; 	
+	
+	// Go to page providing the student import feature in "non Single Page Application" style
+	$scope.importNonSPA = function() {
+		 $window.location.href= appContextPath + "/import.jsp";
+	}
 	
     //Disconnection action
     $scope.logout = function(){

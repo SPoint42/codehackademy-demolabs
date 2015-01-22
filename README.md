@@ -96,9 +96,26 @@ In **registration form** or **update motivation option in profile view**, set XS
 Follow the step below:
 
 1. Log as admin (admin are defined into the SQL file mentioned above), the default student account specified into login form is admin then you can use it,
-2. Go into "**Administer**" section and import sample XML provided in file **xxe-sample-filled.xml**,
+2. Go into "**Administer**" section and import sample XML provided in file **xxe-sample-filled.xml** using the button **Import**,
 3. Login using the new imported student,
 4. See XXE results into "**Motivation**" area.
+
+> You can also use the "non Single Page Application" import form style by clicking on button "Import Non SPA" on "Administer" page.
+
+Use [CDATA](http://www.w3schools.com/xml/xml_cdata.asp) XML tag to inject Javascript, example:
+
+``` 
+<?xml version="1.0" encoding="UTF-8"?>
+<Students>
+	<Student>
+		<Email>a@a.com</Email>
+		<LastnameFirstname>XXE test user</LastnameFirstname>
+		<Password>azertyuiop</Password>
+		<Motivation><![CDATA[ <script>alert(24);</script> ]]></Motivation>
+	</Student>
+</Students>	
+``` 
+
 
 
 # Note about java package naming

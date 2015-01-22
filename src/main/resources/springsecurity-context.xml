@@ -30,6 +30,7 @@
 		<security:intercept-url pattern="/index.jsp#/profile" access="ROLE_STUDENT" />
 		<security:intercept-url pattern="/app/js/admin-controller.js" access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/app/admin.html" access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/import.jsp" access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/index.jsp#/admin" access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/**" access="ROLE_STUDENT" />
 		<security:form-login login-page="/index.jsp#/login" login-processing-url="/login" username-parameter="email" password-parameter="password" authentication-failure-handler-ref="clientNotificationAuthenticationFailureHandler"
