@@ -123,3 +123,7 @@ Use [CDATA](http://www.w3schools.com/xml/xml_cdata.asp) XML tag to inject Javasc
 * SAL : Service Access Layer
 
 * DAL : Data Access Layer
+
+* UT : Unit Tests
+
+* SUT : Security Unit Tests 

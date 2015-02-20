@@ -1,4 +1,4 @@
-package lu.codehackademy.demolabs.sal.ut;
+package lu.codehackademy.demolabs.sal.sut;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * Unit tests cases (test business behavior validity excluding any security validation) for class "lu.codehackademy.demolabs.sal.ServicesProviderController".<br>
+ * Security unit tests cases (test resistance against differents malicious input excluding any business validation) for class "lu.codehackademy.demolabs.sal.ServicesProviderController".<br>
  * Explicitly let methods not tested in order to show an "Unit test code coverage quality issue"
  * 
  * @author Dominique RIGHETTO
@@ -37,8 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration("file:src/main/resources/springmvc-context.xml")
-public class ServicesProviderControllerTestCase {
-
+public class ServicesProviderControllerSecurityTestCase {
 	/** Spring context ref */
 	@Autowired
 	private WebApplicationContext wac;
@@ -55,19 +54,19 @@ public class ServicesProviderControllerTestCase {
 	}
 
 	/**
-	 * Test case validating the student registration service in a valid case.
+	 * Test case validating the student registration service against JavaScript injection in firstname / lastname field.
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testNewStudentRegistrationCaseOK() throws Exception {
+	public void testNewStudentRegistrationCaseInjection01() throws Exception {
 		// Prepare an input object (test content)
 		List<Integer> classesRegistered = new ArrayList<>();
 		classesRegistered.add(1);
 		classesRegistered.add(2);
 		classesRegistered.add(3);
 		CHStudent newStudent = new CHStudent();
-		newStudent.setLastnameFirstname("Test Case A");
+		newStudent.setLastnameFirstname("<script>alert(1)</script>");
 		newStudent.setEmail("TestA@test.com");
 		newStudent.setMotivation("My motivation is to validate that this test is functional");
 		newStudent.setPassword("XXXXXXXXXXXXXXXXXX");
@@ -81,26 +80,25 @@ public class ServicesProviderControllerTestCase {
 		// Apply test
 		ResultActions testCase = this.mockMvc.perform(mockHttpRequest);
 		// Validate test
-		testCase.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(content().string("true"));
+		testCase.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(content().string("false"));
 	}
 
 	/**
-	 * Test case validating the student registration service in a invalid case.<br>
-	 * Invalid Email address case
+	 * Test case validating the student registration service against JavaScript injection in email field.
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testNewStudentRegistrationCaseKO01() throws Exception {
+	public void testNewStudentRegistrationCaseInjection02() throws Exception {
 		// Prepare an input object (test content)
 		List<Integer> classesRegistered = new ArrayList<>();
 		classesRegistered.add(1);
 		classesRegistered.add(2);
 		classesRegistered.add(3);
 		CHStudent newStudent = new CHStudent();
-		newStudent.setLastnameFirstname("Test Case B");
-		newStudent.setEmail("TestB#test.com");
-		newStudent.setMotivation("My motivation is to validate that this test is not functional");
+		newStudent.setLastnameFirstname("Security Test Case B");
+		newStudent.setEmail("<script>alert(1)</script>");
+		newStudent.setMotivation("My motivation is to validate that this test is functional");
 		newStudent.setPassword("XXXXXXXXXXXXXXXXXX");
 		newStudent.setClassesRegistered(classesRegistered);
 		// Convert input object to JSON content
@@ -116,54 +114,23 @@ public class ServicesProviderControllerTestCase {
 	}
 
 	/**
-	 * Test case validating the student registration service in a invalid case.<br>
-	 * Invalid Password case
+	 * Test case validating the student registration service against JavaScript injection in motivation field.<br>
+	 * It's normal that this test case fail because we have injection vulnerability into the motivation field !
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testNewStudentRegistrationCaseKO02() throws Exception {
+	public void testNewStudentRegistrationCaseInjection03() throws Exception {
 		// Prepare an input object (test content)
 		List<Integer> classesRegistered = new ArrayList<>();
 		classesRegistered.add(1);
 		classesRegistered.add(2);
 		classesRegistered.add(3);
 		CHStudent newStudent = new CHStudent();
-		newStudent.setLastnameFirstname("Test Case C");
-		newStudent.setEmail("TestC@test.com");
-		newStudent.setMotivation("My motivation is to validate that this test is not functional");
-		newStudent.setPassword("");
-		newStudent.setClassesRegistered(classesRegistered);
-		// Convert input object to JSON content
-		StringWriter buffer = new StringWriter();
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.writeValue(buffer, newStudent);
-		// Create input test Http request
-		MockHttpServletRequestBuilder mockHttpRequest = post("/services/register").content(buffer.toString()).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-		// Apply test
-		ResultActions testCase = this.mockMvc.perform(mockHttpRequest);
-		// Validate test
-		testCase.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(content().string("false"));
-	}
-
-	/**
-	 * Test case validating the student registration service in a invalid case.<br>
-	 * Invalid Firstname Lastname case
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testNewStudentRegistrationCaseKO03() throws Exception {
-		// Prepare an input object (test content)
-		List<Integer> classesRegistered = new ArrayList<>();
-		classesRegistered.add(1);
-		classesRegistered.add(2);
-		classesRegistered.add(3);
-		CHStudent newStudent = new CHStudent();
-		newStudent.setLastnameFirstname("");
-		newStudent.setEmail("TestD@test.com");
-		newStudent.setMotivation("My motivation is to validate that this test is not functional");
-		newStudent.setPassword("XXXXXXXXXXXXXXX");
+		newStudent.setLastnameFirstname("Security Test Case C");
+		newStudent.setEmail("STCI02@test.com");
+		newStudent.setMotivation("<script>alert(1)</script>");
+		newStudent.setPassword("XXXXXXXXXXXXXXXXXX");
 		newStudent.setClassesRegistered(classesRegistered);
 		// Convert input object to JSON content
 		StringWriter buffer = new StringWriter();
