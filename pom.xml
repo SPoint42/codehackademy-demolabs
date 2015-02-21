@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>lu.codehackademy</groupId>
 	<artifactId>demolabs</artifactId>
@@ -23,11 +22,16 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- Add a this dependency in order to show a detection demo of the Victim plugin -->
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Test -->
-		<!-- KEEP TEST SCOPED DEPENDENCIES AT THE TOP OF THE GLOBAL DEPENDENCIES 
-			LIST -->
-		<!-- See http://dominikdorn.com/2010/05/maven-junit-classformaterror-absent-code-attribute 
-			for explanation -->
+		<!-- KEEP TEST SCOPED DEPENDENCIES AT THE TOP OF THE GLOBAL DEPENDENCIES LIST -->
+		<!-- See http://dominikdorn.com/2010/05/maven-junit-classformaterror-absent-code-attribute for explanation -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -39,8 +43,7 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- From here Test scoped dependencies below has been added in order to 
-			address issue explained in link above -->
+		<!-- From here Test scoped dependencies below has been added in order to address issue explained in link above -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.servlet</artifactId>
@@ -228,9 +231,9 @@
 						<configuration>
 							<rules>
 								<rule implementation="com.redhat.victims.VictimsRule">
-									<metadata>fatal</metadata>
+									<metadata>warning</metadata>
 									<fingerprint>fatal</fingerprint>
-									<updates>daily</updates>
+									<updates>warning</updates>
 								</rule>
 							</rules>
 						</configuration>
