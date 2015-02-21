@@ -232,8 +232,8 @@
 							<rules>
 								<rule implementation="com.redhat.victims.VictimsRule">
 									<metadata>warning</metadata>
-									<fingerprint>fatal</fingerprint>
-									<updates>warning</updates>
+									<fingerprint>warning</fingerprint>
+									<updates>daily</updates>
 								</rule>
 							</rules>
 						</configuration>
