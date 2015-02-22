@@ -5,6 +5,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
+import lu.codehackademy.demolabs.transversal.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -40,7 +42,7 @@ public class Utilities {
 		// [EPLVULN] Use weak hash algorithm
 		MessageDigest md = MessageDigest.getInstance("SHA-1");
 		String salt = "DuTf07fcIQ0jbhJ646ud";
-		int hashingLoop = 13;
+		int hashingLoop = Constants.PASSWORD_HASHING_ROUND;
 		byte[] tmp = (password + salt).getBytes();
 		for (int c = 1; c <= hashingLoop; c++) {
 			tmp = md.digest(tmp);

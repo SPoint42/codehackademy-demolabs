@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -109,12 +108,11 @@ public class ServicesProviderController {
 	 * Service to retrieve the profile (student informations) for the the current connected student.
 	 * 
 	 * @param request Http request incoming
-	 * @param response Http response outgoing
 	 * 
 	 * @return Student informations as JSON representation
 	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.GET, produces = Constants.JSON_MIME_TYPE)
-	public CHStudent profile(HttpServletRequest request, HttpServletResponse response) {
+	public CHStudent profile(HttpServletRequest request) {
 		CHStudent student = null;
 		String email = null;
 		try {
