@@ -18,8 +18,7 @@ public class Utilities {
 	/**
 	 * Generate a digest of a password
 	 * 
-	 * @param password
-	 *            Plain text password
+	 * @param password Plain text password
 	 * @return Hash as string
 	 * @throws NoSuchAlgorithmException
 	 */
@@ -29,7 +28,8 @@ public class Utilities {
 			throw new IllegalArgumentException("Password cannot be null or empty !");
 		}
 		// Create a SALTED SHA-512 hashed X times
-		MessageDigest md = MessageDigest.getInstance("SHA-512");
+		// [EPLVULN] Use weak hash algorithm
+		MessageDigest md = MessageDigest.getInstance("SHA-1");
 		String salt = "DuTf07fcIQ0jbhJ646ud";
 		int hashingLoop = 13;
 		byte[] tmp = (password + salt).getBytes();

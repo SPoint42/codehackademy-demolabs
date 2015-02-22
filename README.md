@@ -14,7 +14,13 @@ This application contains the vulnerabilities below:
 
 * XXE,
 
-* No Content Security Policy.
+* No Content Security Policy,
+
+* Dependency with a known CVE,
+
+* Weak hash algorithm used for password hashing.
+
+Search for tag **EPLVULN** in sources files in order to find vulnerability location.
 
 # Application stack
 
