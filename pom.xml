@@ -43,7 +43,7 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- From here Test scoped dependencies below has been added in order to address issue explained in link above -->
+		<!-- From here dependencies below has been added in order to address issue explained in link above -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.servlet</artifactId>
@@ -54,7 +54,12 @@
 			<artifactId>hibernate-validator</artifactId>
 			<groupId>org.hibernate</groupId>
 			<version>5.0.0.Final</version>
-			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.glassfish.web</groupId>
+					<artifactId>javax.el</artifactId>
+				</exclusion>				
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
@@ -68,6 +73,7 @@
 			<version>3.0.1-b05</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- End of dependencies block added in order to address issue explained in link above -->
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
