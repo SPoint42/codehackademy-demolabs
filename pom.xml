@@ -268,4 +268,21 @@
 			<url>http://www.gnu.org/licenses/gpl.txt</url>
 		</license>
 	</licenses>
+	<ciManagement>
+		<system>CloudBeesJenkins</system>
+		<url>https://righettod.ci.cloudbees.com/job/CodeHackademyDemoLabs/</url>
+	</ciManagement>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/righettod/codehackademy-demolabs/issues</url>
+	</issueManagement>
+	<scm>
+		<url>https://github.com/righettod/codehackademy-demolabs</url>
+		<connection>scm:git:git@github.com:righettod/codehackademy-demolabs.git</connection>
+		<developerConnection>scm:git:git@github.com:righettod/codehackademy-demolabs.git</developerConnection>
+	</scm>
+	<organization>
+		<url>http://www.excellium-services.com</url>
+		<name>Excellium Services</name>
+	</organization>
 </project>
