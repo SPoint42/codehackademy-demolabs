@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -71,7 +73,8 @@ public class ServicesProviderController {
 
 		try {
 			avClasses = this.dataProvider.retrieveAllClasses();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LOG.error("Error during retrieving of available classes !", e);
 			avClasses = null;
 		}
@@ -93,7 +96,8 @@ public class ServicesProviderController {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			email = auth.getName();
 			isadmin = auth.getAuthorities().contains(new SimpleGrantedAuthority(Constants.ADMIN_SEC_ROLES));
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LOG.error("Error during retrieving admin status of student profile '{}' !", email, e);
 			isadmin = false;
 		}
@@ -102,12 +106,15 @@ public class ServicesProviderController {
 	}
 
 	/**
-	 * Service to retrieve the profile (student informations) for the the current connected student
+	 * Service to retrieve the profile (student informations) for the the current connected student.
+	 * 
+	 * @param request Http request incoming
+	 * @param response Http response outgoing
 	 * 
 	 * @return Student informations as JSON representation
 	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.GET, produces = Constants.JSON_MIME_TYPE)
-	public CHStudent profile() {
+	public CHStudent profile(HttpServletRequest request, HttpServletResponse response) {
 		CHStudent student = null;
 		String email = null;
 		try {
@@ -116,7 +123,11 @@ public class ServicesProviderController {
 			email = auth.getName();
 			// Load student profile
 			student = this.dataProvider.retrieveStudent(email);
-		} catch (Exception e) {
+			// [EPLVULN] Trace association User/SessionInd in log
+			String sId = (request.getSession(false) == null) ? "NA" : request.getSession(false).getId();
+			LOG.info("User '{}' bound to Session '{}'.", email, sId);
+		}
+		catch (Exception e) {
 			LOG.error("Error during retrieving of student profile '{}' !", email, e);
 			student = null;
 		}
@@ -169,7 +180,8 @@ public class ServicesProviderController {
 					updateStatus = true;
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LOG.error("Error during update of classe registration for student '{}' !", email, e);
 			updateStatus = false;
 		}
@@ -212,7 +224,8 @@ public class ServicesProviderController {
 					registrationSucceed = false;
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LOG.error("Error during registration of a new student '{}' !", newStudent, e);
 			registrationSucceed = false;
 		}
@@ -241,7 +254,8 @@ public class ServicesProviderController {
 				this.dataProvider.updateStudentMotivation(email, newMotivation);
 				updStatus = true;
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LOG.error("Error during update of students motivation !", e);
 		}
 
@@ -317,7 +331,8 @@ public class ServicesProviderController {
 				}
 
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LOG.error("Error during import of a new students !", e);
 		}
 

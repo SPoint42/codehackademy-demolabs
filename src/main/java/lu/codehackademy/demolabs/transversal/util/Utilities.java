@@ -16,6 +16,15 @@ import org.apache.commons.lang3.StringUtils;
 public class Utilities {
 
 	/**
+	 * 
+	 * Constructor
+	 *
+	 */
+	private Utilities() {
+		// Avoid instanciation
+	}
+
+	/**
 	 * Generate a digest of a password
 	 * 
 	 * @param password Plain text password
@@ -27,7 +36,7 @@ public class Utilities {
 		if (StringUtils.isBlank(password)) {
 			throw new IllegalArgumentException("Password cannot be null or empty !");
 		}
-		// Create a SALTED SHA-512 hashed X times
+		// Create a SALTED hashed X times
 		// [EPLVULN] Use weak hash algorithm
 		MessageDigest md = MessageDigest.getInstance("SHA-1");
 		String salt = "DuTf07fcIQ0jbhJ646ud";
