@@ -24,7 +24,7 @@ This application contains the vulnerabilities below:
 
 * Use weak hash algorithm for password hashing.
 
-Search for tag **EPLVULN** in sources files in order to find vulnerability location.
+> Search for tag [EPLVULN] marker in sources files in order to spot vulnerability location.
 
 # Application stack
 
