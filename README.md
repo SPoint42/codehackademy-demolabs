@@ -18,9 +18,9 @@ This application contains the vulnerabilities below:
 
 * Dependency with a known CVE,
 
-* Trace SessionID in log,
+* Take SessionID from cookie and trace SessionID in log,
 
-* Weak hash algorithm used for password hashing.
+* Use weak hash algorithm for password hashing.
 
 Search for tag **EPLVULN** in sources files in order to find vulnerability location.
 

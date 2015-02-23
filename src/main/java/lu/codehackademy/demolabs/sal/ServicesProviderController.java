@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -121,8 +122,16 @@ public class ServicesProviderController {
 			email = auth.getName();
 			// Load student profile
 			student = this.dataProvider.retrieveStudent(email);
-			// [EPLVULN] Trace association User/SessionInd in log
-			String sId = (request.getSession(false) == null) ? "NA" : request.getSession(false).getId();
+			// [EPLVULN] Take SessionID from client cookie and trace association User/SessionID in log
+			String sId = "NA";
+			if (request.getCookies() != null) {
+				for (Cookie c : request.getCookies()) {
+					if ("JSESSIONID".equalsIgnoreCase(c.getName())) {
+						sId = c.getValue();
+						break;
+					}
+				}
+			}
 			LOG.info("User '{}' bound to Session '{}'.", email, sId);
 		}
 		catch (Exception e) {
