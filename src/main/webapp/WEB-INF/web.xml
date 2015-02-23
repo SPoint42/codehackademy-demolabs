@@ -9,7 +9,7 @@
 		<tracking-mode>COOKIE</tracking-mode>
 		<cookie-config>
 			<http-only>true</http-only>
-			<name>JSESSIONID</name>
+			<name>CHD</name>
 		</cookie-config>
 	</session-config>
 

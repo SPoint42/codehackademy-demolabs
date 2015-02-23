@@ -35,7 +35,7 @@
 		<security:intercept-url pattern="/**" access="ROLE_STUDENT" />
 		<security:form-login login-page="/index.jsp#/login" login-processing-url="/login" username-parameter="email" password-parameter="password" authentication-failure-handler-ref="clientNotificationAuthenticationFailureHandler"
 			authentication-success-handler-ref="clientNotificationAuthenticationSuccessHandler" />
-		<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="JSESSIONID" success-handler-ref="clientNotificationLogoutSuccessHandler" />
+		<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="CHD" success-handler-ref="clientNotificationLogoutSuccessHandler" />
 		<!-- Configure Spring Security to detect the submission of an invalid session ID and redirect the user to an appropriate URL -->
 		<security:session-management invalid-session-url="/index.jsp#/login" session-authentication-error-url="/index.jsp#/login" session-fixation-protection="newSession">
 			<!-- Prevent a user from logging in multiple times - a second login will cause the first to be invalidated -->
