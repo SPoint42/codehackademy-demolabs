@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -121,7 +122,7 @@ public class ServicesProviderController {
 			email = auth.getName();
 			// Load student profile
 			student = this.dataProvider.retrieveStudent(email);
-			// [EPLVULN] Take it from client cookie and trace association between User and SessionID in log
+			// [EPLVULN] Take SessionID from client cookie and trace association between User and SessionID in application log
 			String sId = (StringUtils.isNoneBlank(request.getRequestedSessionId())) ? request.getRequestedSessionId() : "NA";
 			LOG.info("User '{}' bound to Session '{}'.", email, sId);
 		}
@@ -191,35 +192,43 @@ public class ServicesProviderController {
 	 * Service to add a new student
 	 * 
 	 * @param newStudent Informations of the new student to add
+	 * @param request Http request incoming
 	 * @return JSON representation indicating the registration status
 	 */
 	@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = Constants.JSON_MIME_TYPE, consumes = Constants.JSON_MIME_TYPE)
-	public boolean register(@RequestBody CHStudent newStudent) {
+	public boolean register(@RequestBody CHStudent newStudent, HttpServletRequest request) {
 		boolean registrationSucceed = false;
 
 		try {
-			// [EPLVULN] No quality check on provided password in order to show risk of weak password
-			// Apply security check on input
-			Validator val = Validation.buildDefaultValidatorFactory().getValidator();
-			Set<ConstraintViolation<CHStudent>> constraintViolations = val.validate(newStudent);
-			if (!constraintViolations.isEmpty()) {
-				StringBuilder buffer = new StringBuilder("Input validation failed for properties : ");
-				for (ConstraintViolation<CHStudent> constraintViolation : constraintViolations) {
-					buffer.append("'");
-					buffer.append(constraintViolation.getPropertyPath());
-					buffer.append("' ; ");
-				}
-				LOG.warn(buffer.toString());
+			// [EPLVULN] Use "referer" HTTP request header information for authorization decision
+			String source = request.getHeader("referer");
+			if (StringUtils.isNoneBlank(source) && source.toLowerCase(Locale.UK).contains("google.com")) {
+				LOG.warn("Referer HTTP request header value contains 'google.com' then we refuse registration access !");
 				registrationSucceed = false;
 			} else {
-				// Try adding
-				newStudent.setClassesRegistered(new ArrayList<Integer>());// Override any existing set of classes defined
-				int[] state = this.dataProvider.addStudents(newStudent);
-				if ((state != null) && (state.length == 1) && (state[0] == 1)) {
-					registrationSucceed = true;
-				} else {
+				// [EPLVULN] No quality check on provided password in order to show risk of weak password
+				// Apply security check on input
+				Validator val = Validation.buildDefaultValidatorFactory().getValidator();
+				Set<ConstraintViolation<CHStudent>> constraintViolations = val.validate(newStudent);
+				if (!constraintViolations.isEmpty()) {
+					StringBuilder buffer = new StringBuilder("Input validation failed for properties : ");
+					for (ConstraintViolation<CHStudent> constraintViolation : constraintViolations) {
+						buffer.append("'");
+						buffer.append(constraintViolation.getPropertyPath());
+						buffer.append("' ; ");
+					}
+					LOG.warn(buffer.toString());
 					registrationSucceed = false;
+				} else {
+					// Try adding
+					newStudent.setClassesRegistered(new ArrayList<Integer>());// Override any existing set of classes defined
+					int[] state = this.dataProvider.addStudents(newStudent);
+					if ((state != null) && (state.length == 1) && (state[0] == 1)) {
+						registrationSucceed = true;
+					} else {
+						registrationSucceed = false;
+					}
 				}
 			}
 		}

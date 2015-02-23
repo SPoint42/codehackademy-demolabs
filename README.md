@@ -18,7 +18,9 @@ This application contains the vulnerabilities below:
 
 * Dependency with a known CVE,
 
-* Take SessionID from cookie and trace SessionID in log,
+* Take SessionID from client cookie and trace association between User and SessionID in application log,
+
+* Use "referer" HTTP request header information for authorization decision,
 
 * Use weak hash algorithm for password hashing.
 
@@ -83,6 +85,7 @@ Last build status:
 
 [![Build Status](https://righettod.ci.cloudbees.com/buildStatus/icon?job=CodeHackademyDemoLabs)](https://righettod.ci.cloudbees.com/job/CodeHackademyDemoLabs/)
 
+> Build status "Unstable" is normal because we explicilty have a unit test that fail in order to show benefits of unit tests dedicated to application security testing.
 
 # Trigger vulnerabilities
 
