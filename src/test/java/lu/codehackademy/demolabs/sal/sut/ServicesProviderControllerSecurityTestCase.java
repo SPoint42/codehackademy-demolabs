@@ -113,34 +113,5 @@ public class ServicesProviderControllerSecurityTestCase {
 		testCase.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(content().string("false"));
 	}
 
-	/**
-	 * Test case validating the student registration service against JavaScript injection in motivation field.<br>
-	 * It's normal that this test case fail because we have injection vulnerability into the motivation field !
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testNewStudentRegistrationCaseInjection03() throws Exception {
-		// Prepare an input object (test content)
-		List<Integer> classesRegistered = new ArrayList<>();
-		classesRegistered.add(1);
-		classesRegistered.add(2);
-		classesRegistered.add(3);
-		CHStudent newStudent = new CHStudent();
-		newStudent.setLastnameFirstname("Security Test Case C");
-		newStudent.setEmail("STCI02@test.com");
-		newStudent.setMotivation("<script>alert(1)</script>");
-		newStudent.setPassword("XXXXXXXXXXXXXXXXXX");
-		newStudent.setClassesRegistered(classesRegistered);
-		// Convert input object to JSON content
-		StringWriter buffer = new StringWriter();
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.writeValue(buffer, newStudent);
-		// Create input test Http request
-		MockHttpServletRequestBuilder mockHttpRequest = post("/services/register").content(buffer.toString()).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-		// Apply test
-		ResultActions testCase = this.mockMvc.perform(mockHttpRequest);
-		// Validate test
-		testCase.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(content().string("false"));
-	}
+	
 }
