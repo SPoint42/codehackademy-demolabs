@@ -39,7 +39,7 @@
 		<!-- Configure Spring Security to detect the submission of an invalid session ID and redirect the user to an appropriate URL -->
 		<security:session-management invalid-session-url="/index.jsp#/login" session-authentication-error-url="/index.jsp#/login" session-fixation-protection="newSession">
 			<!-- Prevent a user from logging in multiple times - a second login will cause the first to be invalidated -->
-			<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+			<!--<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />-->
 		</security:session-management>
 		<!-- Add header to protect against Clickjackking / Enable XSS protection on browser / Content sniffing by browser -->
 		<security:headers>
